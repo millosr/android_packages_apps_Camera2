@@ -162,14 +162,20 @@ public class TaskCompressImageToJpeg extends TaskJpegEncode {
                     }
 
                     final DeviceOrientation exifDerivedRotation;
-                    if (exifOrientation == null) {
-                        // No existing rotation value is assumed to be 0
-                        // rotation.
-                        exifDerivedRotation = DeviceOrientation.CLOCKWISE_0;
-                    } else {
-                        exifDerivedRotation = DeviceOrientation
-                                .from(exifOrientation);
-                    }
+                    /*
+                     * EXIF orientation is always set to 0 on Sony Nozomi
+                     * so we override the value with img.rotation that is true
+                     *
+                     * if (exifOrientation == null) {
+                     *     // No existing rotation value is assumed to be 0
+                     *     // rotation.
+                     *     exifDerivedRotation = DeviceOrientation.CLOCKWISE_0;
+                     * } else {
+                     *     exifDerivedRotation = DeviceOrientation
+                     *             .from(exifOrientation);
+                     * }
+                     */
+                    exifDerivedRotation = img.rotation;
 
                     final int imageWidth;
                     final int imageHeight;
